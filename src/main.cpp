@@ -1,17 +1,18 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include <vector>
 #include "curses.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <functional>
 #include "snake.h"
-#include "key.cpp"
 
 
 WINDOW *create_newwin(int height, int width, int starty, int startx);
 void destroy_win(WINDOW *local_win);
+int kbhit(void);
 
 int main(int argc, char* argv[]) {
 	int snake_x, snake_y;
@@ -26,13 +27,19 @@ int main(int argc, char* argv[]) {
 	snake_y = LINES / 2;
 	snake_x = COLS / 2;
 
-	std::shared_ptr<Snake> s = std::make_shared<Snake>(snake_x, snake_y, Direction::UP);  
+	std::shared_ptr<Snake> s = std::make_shared<Snake>(snake_x, snake_y, 20, Direction::UP);  
 
-	mvprintw(s->y, s->x, "@");
+
+	for (auto seg : s->getBody()) {
+		mvprintw(seg->y, seg->x, "O");
+	}
+
 	refresh();
 	
 	while (ch != KEY_F(1)) {
-		mvprintw(s->y, s->x, "O");
+		for (auto seg : s->getBody()) {
+			mvprintw(seg->y, seg->x, "O");
+		}
 		refresh();
 
 		if (kbhit()) {
@@ -52,13 +59,11 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		s->moveSnake();
 		clear();
 	}
 	
-	
-
 	endwin();			/* End curses mode */
 	return 0;
 }
@@ -94,6 +99,18 @@ void destroy_win(WINDOW *local_win) {
 	*/
 	wrefresh(local_win);
 	delwin(local_win);
+}
+
+int kbhit(void) {
+	int ch = getch();
+
+	if (ch != ERR) {
+		ungetch(ch);
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 

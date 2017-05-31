@@ -27,3 +27,11 @@
 *.exe
 *.out
 *.app
+
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
