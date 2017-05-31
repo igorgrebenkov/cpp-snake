@@ -1,0 +1,10 @@
+﻿  main.cpp
+C:\@git\Cpp\cpp-snake\include\curses.h(160): warning C4005: 'MOUSE_MOVED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\wincon.h(118): note: see previous definition of 'MOUSE_MOVED'
+  Generating code
+c:\@git\cpp\cpp-snake\src\main.cpp(35): warning C4700: uninitialized local variable 'ch' used
+  1 of 62 functions ( 1.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  cpp-snake.vcxproj -> C:\@git\Cpp\cpp-snake\Release\cpp-snake.exe
