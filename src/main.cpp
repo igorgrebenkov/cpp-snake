@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 	snake_y = LINES / 2;
 	snake_x = COLS / 2;
 
-	std::shared_ptr<Snake> s = std::make_shared<Snake>(snake_x, snake_y, 20, Direction::UP);  
+	std::shared_ptr<Snake> s = std::make_shared<Snake>(snake_x, snake_y, 25, Direction::UP);  
 
 
 	for (auto seg : s->getBody()) {
@@ -45,21 +45,29 @@ int main(int argc, char* argv[]) {
 		if (kbhit()) {
 			switch (ch = getch()) {
 				case KEY_UP:
-					s->setDirection(Direction::UP);
+					if (s->canMove(Direction::UP)) {
+						s->setDirection(Direction::UP);
+					}
 					break;
 				case KEY_DOWN:
-					s->setDirection(Direction::DOWN);
+					if (s->canMove(Direction::DOWN)) {
+						s->setDirection(Direction::DOWN);
+					}
 					break;
 				case KEY_LEFT:
-					s->setDirection(Direction::LEFT);
+					if (s->canMove(Direction::LEFT)) {
+						s->setDirection(Direction::LEFT);
+					}
 					break;
 				case KEY_RIGHT:
-					s->setDirection(Direction::RIGHT);
+					if (s->canMove(Direction::RIGHT)) {
+						s->setDirection(Direction::RIGHT);
+					}
 					break;
 			}
 		}
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		s->moveSnake();
 		clear();
 	}

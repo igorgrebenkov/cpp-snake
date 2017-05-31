@@ -31,6 +31,10 @@ public:
 
 	}
 
+	std::shared_ptr<SnakeSegment> getHead() {
+		return head;
+	}
+
 	std::vector<std::shared_ptr<SnakeSegment>> getBody() {
 		return snakeBody;
 	}
@@ -51,8 +55,36 @@ public:
 				head = std::make_shared<SnakeSegment>(head->x - 1, head->y);
 				break;
 		}
+
 		snakeBody.insert(snakeBody.begin(), head);
 		snakeBody.pop_back();
+	}
+
+	boolean canMove(Direction newDirection) {
+		std::shared_ptr<SnakeSegment> afterHead = snakeBody.at(1);
+		switch (newDirection) {
+			case Direction::UP:
+				if ((head->y - 1) == afterHead->y) {
+					return false;
+				}
+				break;
+			case Direction::DOWN:
+				if ((head->y + 1) == afterHead->y) {
+					return false;
+				}
+				break;
+			case Direction::RIGHT:
+				if ((head->x + 1) == afterHead->x) {
+					return false;
+				}
+				break;
+			case Direction::LEFT:
+				if ((head->x - 1) == afterHead->x) {
+					return false;
+				}
+				break;
+		}
+		return true;
 	}
 };
 
