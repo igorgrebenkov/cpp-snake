@@ -132,8 +132,9 @@ bool Game::isSnakeCollision() {
 }
 
 void Game::gameOver() {
-	// Redraw windows to show Snake head's final position on game over
-	createWindows();
+	// Redraw game board to show Snake head's final position on game over
+	gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
+
 	printSnake();
 	wrefresh(gameBoard->getWindow());
 
