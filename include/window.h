@@ -1,3 +1,10 @@
+/**
+*	window.h
+*	The class Window creates a curses window.
+*
+*	Author: Igor Grebenkov
+*/
+
 #pragma once
 
 class Window {

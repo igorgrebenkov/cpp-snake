@@ -1,3 +1,10 @@
+/**
+*	point.h
+*	A simple point class.
+*
+*	Author: Igor Grebenkov
+*/
+
 #pragma once
 
 class Point {

@@ -1,3 +1,10 @@
+/**
+*	snake.h
+*	The Snake class. A Snake is a series of SnakeSegments (Points) in a vector.
+*
+*	Author: Igor Grebenkov
+*/
+
 #pragma once
 #include <memory>
 #include <vector>
@@ -6,9 +13,6 @@
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 class SnakeSegment : public Point {
-private:
-	int x;
-	int y;
 public:
 	SnakeSegment(int xPos, int yPos) : Point(yPos, xPos) { };
 };

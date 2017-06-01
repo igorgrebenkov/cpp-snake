@@ -1,4 +1,18 @@
+/**
+*	game.h
+*	Contains the game objects and logic. 
+*
+*	Author: Igor Grebenkov
+*/
 #pragma once
+#include <memory>
+#include <chrono>
+#include <thread>
+#include <iostream>
+#include "curses.h"
+#include "snake.h"
+#include "food.h"
+#include "window.h"
 
 const int BOARD_Y_OFFSET = 3;
 const int F_MIN_Y = 2;

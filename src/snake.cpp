@@ -1,3 +1,9 @@
+/**
+*	snake.h
+*	The Snake class. A Snake is a series of SnakeSegments (Points) in a vector.
+*
+*	Author: Igor Grebenkov
+*/
 
 #include "snake.h"
 

@@ -1,15 +1,14 @@
-#include <iostream>
+/**
+*	main.cpp
+*	Contains main, which initializes curses and starts a game.
+*
+*	Author: Igor Grebenkov
+*/
+
 #include <vector>
-#include <chrono>
-#include <thread>
-#include <cstdlib>
-#include <ctime>
-#include <string>
+#include <memory>
 
 #include "curses.h"
-#include "snake.h"
-#include "window.h"
-#include "food.h"
 #include "game.h"
 
 int main(int argc, char* argv[]) {

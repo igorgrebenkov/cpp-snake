@@ -4,15 +4,6 @@
 *
 *	Author: Igor Grebenkov
 */
-
-#include <memory>
-#include <chrono>
-#include <thread>
-#include <iostream>
-#include "curses.h"
-#include "snake.h"
-#include "food.h"
-#include "window.h"
 #include "game.h"
 
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
@@ -51,7 +42,6 @@ void Game::play() {
 			if (delay > 0) {
 				delay -= DELAY_REDUCE;
 			}
-
 			score++;
 		}
 
