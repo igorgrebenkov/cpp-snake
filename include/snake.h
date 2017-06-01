@@ -1,13 +1,17 @@
 #pragma once
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
+const int GROWTH_RATE = 3;
+
 class SnakeSegment {
-public:
+private:
 	int x;
 	int y;
-
+public:
 	SnakeSegment() = default;
 	SnakeSegment(int x_coord, int y_coord) : x(x_coord), y(y_coord) {};
+	int getX() { return x; }
+	int getY() { return y; }
 };
 
 class Snake {
@@ -42,16 +46,16 @@ public:
 	void moveSnake() {
 		switch (direction) {
 			case Direction::UP:
-				head = std::make_shared<SnakeSegment>(head->x, head->y - 1);
+				head = std::make_shared<SnakeSegment>(head->getX(), head->getY() - 1);
 				break;
 			case Direction::DOWN:
-				head = std::make_shared<SnakeSegment>(head->x, head->y + 1);
+				head = std::make_shared<SnakeSegment>(head->getX(), head->getY() + 1);
 				break;
 			case Direction::RIGHT:
-				head = std::make_shared<SnakeSegment>(head->x + 1, head->y);
+				head = std::make_shared<SnakeSegment>(head->getX() + 1, head->getY());
 				break;
 			case Direction::LEFT:
-				head = std::make_shared<SnakeSegment>(head->x - 1, head->y);
+				head = std::make_shared<SnakeSegment>(head->getX() - 1, head->getY());
 				break;
 		}
 
@@ -59,27 +63,48 @@ public:
 		snakeBody.pop_back();
 	}
 
+	void grow() {
+		std::shared_ptr<SnakeSegment> tail = snakeBody.back();
+
+		for (int i = 0; i < GROWTH_RATE; i++) {
+			switch (direction) {
+				case Direction::UP:
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() - i));
+					break;
+				case Direction::DOWN:
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() + i));
+					break;
+				case Direction::RIGHT:
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() + i, tail->getY()));
+					break;
+				case Direction::LEFT:
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() - i, tail->getY()));
+					break;
+			}
+		}
+	}
+
 	bool canMove(Direction newDirection) {
 		if (length > 1) {
 			std::shared_ptr<SnakeSegment> afterHead = snakeBody.at(1);
 			switch (newDirection) {
 				case Direction::UP:
-					if ((head->y - 1) == afterHead->y) {
+					if ((head->getY() - 1) == afterHead->getY()) {
 						return false;
 					}
 					break;
 				case Direction::DOWN:
-					if ((head->y + 1) == afterHead->y) {
+					if ((head->getY() + 1) == afterHead->getY()) {
 						return false;
 					}
 					break;
 				case Direction::RIGHT:
-					if ((head->x + 1) == afterHead->x) {
+					if ((head->getX() + 1) == afterHead->getX()) {
 						return false;
 					}
 					break;
 				case Direction::LEFT:
-					if ((head->x - 1) == afterHead->x) {
+					if ((head->getX() - 1) == afterHead->getX()) {
 						return false;
 					}
 					break;

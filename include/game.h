@@ -1,10 +1,15 @@
 #pragma once
 
 const int BOARD_Y_OFFSET = 3;
+const int F_MIN_Y = 2;
+const int F_MAX_Y_OFFSET = 6;
+const int F_MIN_X = 2;
+const int F_MAX_X_OFFSET = 4;
 
 class Game {
 private:
 	int score;
+	bool isFood;
 	std::shared_ptr<Window> scoreBoard;
 	std::shared_ptr<Window> gameBoard;
 	std::shared_ptr<Snake> snake; 
@@ -17,27 +22,76 @@ public:
 		snake = std::make_shared<Snake>(snakeStartX, snakeStartY, snakeLength, Direction::UP);
 		printScoreBoard();
 		printSnake();
+		isFood = false;
 	}
 
 	void play() {
 		int ch;
-		
+
 		while (ch != KEY_F(1)) {
 			scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
 			gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 
+			if (!isFood) {
+				makeFood();
+				isFood = true;
+			}
+
+			if (ateFood()) {
+				clearFood();
+				isFood = false;
+				snake->grow();
+			}
+
 			printScoreBoard();
 			printSnake();
+			printFood();
 
 			checkInput(ch);
+			snake->moveSnake();
+
+			wrefresh(gameBoard->getWindow());
+			wrefresh(scoreBoard->getWindow());
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-			snake->moveSnake();
 		}
 	}
 
 private:
+	void printScoreBoard() {
+		mvwprintw(scoreBoard->getWindow(), 1, COLS / 2, "Score: %d", score);
+	}
+
+	void printSnake() {
+		for (auto seg : snake->getBody()) {
+			mvwprintw(gameBoard->getWindow(), seg->getY(), seg->getX(), "O");
+		}
+	}
+
+	void printFood() {
+		mvwprintw(gameBoard->getWindow(), food->getY(), food->getX(), "@");
+	}
+
+	void clearFood() {
+		mvwprintw(gameBoard->getWindow(), food->getY(), food->getX(), " ");
+	}
+
+	void makeFood() {
+		srand(time(NULL));
+		int foodY = rand() % (LINES - F_MAX_Y_OFFSET) + (F_MIN_Y);
+		int foodX = rand() % (COLS - F_MAX_X_OFFSET) + (F_MIN_X);
+		food = std::make_shared<Food>(foodY, foodX);
+	}
+
+	bool ateFood() {
+		int snakeHeadX = snake->getHead()->getX();
+		int snakeHeadY = snake->getHead()->getY();
+		int foodX = food->getX();
+		int foodY = food->getY();
+
+		return snakeHeadX == foodX && snakeHeadY == foodY;
+	}
+
 	void checkInput(int& ch) {
 		if (kbhit()) {
 			switch (ch = getch()) {
@@ -64,19 +118,7 @@ private:
 			}
 		}
 	}
-
-	void printSnake() {
-		for (auto seg : snake->getBody()) {
-			mvwprintw(gameBoard->getWindow(), seg->y, seg->x, "O");
-		}
-		wrefresh(gameBoard->getWindow());
-	}
-
-	void printScoreBoard() {
-		mvwprintw(scoreBoard->getWindow(), 1, COLS / 2, "Score: %d", score);
-		wrefresh(scoreBoard->getWindow());
-	}
-
+	
 	int kbhit(void) {
 		int ch = getch();
 
@@ -88,4 +130,5 @@ private:
 			return 0;
 		}
 	}
+
 };

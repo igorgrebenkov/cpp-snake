@@ -1,10 +1,11 @@
 #pragma once
 
 class Food {
-	int x;
+private:
 	int y;
-	
-	Food(int xMin, int yMin, int xMax, int yMax) {
-
-	};
+	int x;
+public:
+	Food(int yPos, int xPos) : y(yPos), x(xPos) {};
+	int getY() { return y; }
+	int getX() { return x; }
 };

@@ -2,6 +2,8 @@
 #include <vector>
 #include <chrono>
 #include <thread>
+#include <cstdlib>
+#include <ctime>
 
 #include "curses.h"
 #include "snake.h"
