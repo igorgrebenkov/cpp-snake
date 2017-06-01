@@ -1,3 +1,10 @@
+/**
+*	game.cpp
+*	Contains the game objects and logic. 
+*
+*	Author: Igor Grebenkov
+*/
+
 #include <memory>
 #include <chrono>
 #include <thread>
@@ -19,6 +26,9 @@ Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(
 	delay = INITIAL_DELAY;
 }
 
+/**
+* Contains the main game loop.
+*/
 void Game::play() {
 	while (ch != KEY_F(1) && !isGameOver) {
 		if (isWallCollision() || isSnakeCollision()) {
@@ -48,7 +58,6 @@ void Game::play() {
 		printSnake();
 		printFood();
 		printScoreBoard();
-
 
 		checkInput();
 		snake->moveSnake();
@@ -138,6 +147,8 @@ void Game::gameOver() {
 
 	int startY = (maxBoardY - height) / 2;
 	int startX = (maxBoardX - width) / 2;
+
+	// Window for game over screen
 	std::shared_ptr<Window> w = std::make_shared<Window>(height, width, startY, startX);
 
 	int maxY;
@@ -145,7 +156,7 @@ void Game::gameOver() {
 	getmaxyx(w->getWindow(), maxY, maxX);
 
 	char str1[] = "Game Over!";
-	char str2[] = "Press p to play again. Any other key to quit.";
+	char str2[] = "Press p to play again, or F1 to exit.";
 
 	while (1) {
 		mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
@@ -153,13 +164,15 @@ void Game::gameOver() {
 		wrefresh(w->getWindow());
 
 		if (kbhit()) {
-			if ((ch = getch()) == 'p') {
+			ch = getch();
+			if (ch == 'p') {
 				reset();
+				break;
 			}
-			else {
+			else if (ch == KEY_F(1)) {
 				isGameOver = true;
+				break;
 			}
-			break;
 		}
 	}
 }
