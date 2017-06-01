@@ -4,6 +4,7 @@
 *
 *	Author: Igor Grebenkov
 */
+#include <windows.h>
 #include "game.h"
 
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
@@ -35,6 +36,7 @@ void Game::play() {
 		}
 
 		if (ateFood()) {
+			Beep(523, 75);
 			clearFood();
 			isFood = false;
 			snake->grow(SNAKE_GROWTH_RATE);
@@ -152,6 +154,8 @@ void Game::gameOver() {
 	mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
 	wrefresh(w->getWindow());
 
+	gameOverMusic();
+
 	while (1) {
 		if (kbhit()) {
 			ch = getch();
@@ -164,6 +168,12 @@ void Game::gameOver() {
 				break;
 			}
 		}
+	}
+}
+
+void Game::gameOverMusic() {
+	for (int i = 1; i < 9; i++) {
+		Beep((rand() % 800 + 500), 100);
 	}
 }
 

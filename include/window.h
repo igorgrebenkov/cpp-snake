@@ -14,7 +14,7 @@ public:
 		window = newwin(height, width, y, x);
 		box(window, 0, 0);		/* 0, 0 gives default characters
 									* for the vertical and horizontal lines	*/
-		wrefresh(window);		/* Show that box */
+		wrefresh(window);		
 	}
 	WINDOW* getWindow() {
 		return window;
