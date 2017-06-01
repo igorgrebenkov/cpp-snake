@@ -1,18 +1,15 @@
 #include <iostream>
-#include <string>
 #include <vector>
-#include "curses.h"
-#include <iostream>
 #include <chrono>
 #include <thread>
+
+#include "curses.h"
 #include "snake.h"
 #include "window.h"
+#include "food.h"
 #include "game.h"
 
-
-
 int main(int argc, char* argv[]) {
-
 	initscr();				
 	cbreak();				
 	curs_set(FALSE);            
@@ -29,7 +26,7 @@ int main(int argc, char* argv[]) {
 		SNAKE_START_X,
 		SNAKE_START_LENGTH);
 	
-	g->play(ch);
+	g->play();
 	
 	endwin();			/* End curses mode */
 	return 0;

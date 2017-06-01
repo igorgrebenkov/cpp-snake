@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\food.h" />
     <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\game.h" />
     <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\snake.h" />
     <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\window.h" />

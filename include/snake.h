@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 class SnakeSegment {

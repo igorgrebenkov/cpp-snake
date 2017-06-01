@@ -1,6 +1,4 @@
 #pragma once
-#include "curses.h"
-
 
 class Window {
 public:

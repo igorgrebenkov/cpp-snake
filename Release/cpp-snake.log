@@ -1,8 +1,9 @@
 ﻿  main.cpp
+..\..\..\@git\Cpp\cpp-snake\src\main.cpp(23): warning C4101: 'ch': unreferenced local variable
   Generating code
-c:\@git\cpp\cpp-snake\src\main.cpp(32): warning C4700: uninitialized local variable 'ch' used
-  4 of 277 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+c:\@git\cpp\cpp-snake\include\game.h(25): warning C4700: uninitialized local variable 'ch' used
+  6 of 284 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   cpp-snake.vcxproj -> C:\@git\Cpp\cpp-snake\Release\cpp-snake.exe
