@@ -111,14 +111,19 @@ private:
 		int snakeHeadX = snake->getHead()->getX();
 		int snakeHeadY = snake->getHead()->getY();
 
-		if (snakeHeadY == 0 || snakeHeadY == (LINES - BOARD_Y_OFFSET) ||
-			snakeHeadX == 0 || snakeHeadX == COLS) {
+		if (snakeHeadY == 0 || snakeHeadY == (LINES - BOARD_Y_OFFSET - 1) ||
+			snakeHeadX == 0 || snakeHeadX == COLS - 1) {
 			return true;
 		} 
 		return false;
 	}
 
 	void gameOver() {
+		// Redraw gameBoard to show Snake head's final position on game over
+		gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
+		printSnake();
+		wrefresh(gameBoard->getWindow());
+
 		int height = 10;
 		int width = 60;
 
@@ -128,7 +133,6 @@ private:
 
 		int startY = (maxBoardY - height) / 2;
 		int startX = (maxBoardX - width) / 2;
-
 		std::shared_ptr<Window> w = std::make_shared<Window>(height, width, startY, startX);
 		
 		int maxY;
@@ -139,7 +143,6 @@ private:
 		char str2[] = "Press p to play again. Any other key to quit.";
 
 		while (1) {
-			
 			mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
 			mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
 			wrefresh(w->getWindow());
