@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 	initscr();				
 	cbreak();				
 	curs_set(FALSE);            
-	keypad(stdscr, TRUE);		// enable function keys
+	keypad(stdscr, TRUE);		
 	nodelay(stdscr, TRUE);      // make getch non-blocking
 	noecho();
 

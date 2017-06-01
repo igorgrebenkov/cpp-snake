@@ -28,7 +28,7 @@ void Game::play() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(INITIAL_DELAY));
 	}
 
-	while (ch != KEY_F(1) && !isGameOver) {
+	while (ch != 'q' && !isGameOver) {
 		if (isWallCollision() || isSnakeCollision()) {
 			gameOver();
 		}
@@ -155,7 +155,7 @@ void Game::gameOver() {
 	getmaxyx(w->getWindow(), maxY, maxX);
 
 	char str1[] = "Game Over!";
-	char str2[] = "Press p to play again, or F1 to exit.";
+	char str2[] = "Press p to play again, or q to exit.";
 
 	mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
 	mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
@@ -170,7 +170,7 @@ void Game::gameOver() {
 				reset();
 				break;
 			}
-			else if (ch == KEY_F(1)) {
+			else if (ch == 'q') {
 				isGameOver = true;
 				break;
 			}
