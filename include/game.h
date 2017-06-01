@@ -5,7 +5,7 @@ const int F_MIN_Y = 2;
 const int F_MAX_Y_OFFSET = 6;
 const int F_MIN_X = 2;
 const int F_MAX_X_OFFSET = 4;
-const int INITIAL_DELAY = 50;
+const int INITIAL_DELAY = 75;
 const int DELAY_REDUCE = 3;
 const int SNAKE_GROWTH_RATE = 5;	
 const int SNAKE_START_LENGTH = 1;
@@ -38,7 +38,7 @@ public:
 
 	void play() {
 		while (ch != KEY_F(1) && !isGameOver) {
-			if (isWallCollision()) {
+			if (isWallCollision() || isSnakeCollision()) {
 				gameOver();
 			}
 
@@ -115,6 +115,25 @@ private:
 			snakeHeadX == 0 || snakeHeadX == COLS - 1) {
 			return true;
 		} 
+		return false;
+	}
+
+	bool isSnakeCollision() {
+		if (snake->getLength() > 1) {
+			int snakeHeadX = snake->getHead()->getX();
+			int snakeHeadY = snake->getHead()->getY();
+
+			for (int i = 1; i < snake->getBody().size(); i++) {
+				int segX = snake->getBody().at(i)->getX();
+				int segY = snake->getBody().at(i)->getY();
+
+				if (snakeHeadX == segX && snakeHeadY == segY) {
+					std::cout << "x(" << i << "): " << snakeHeadX << ",y(" << i << "): " << snakeHeadY << " " << std::endl;
+					std::cout << "x(" << i << "): " << segX << ",y(" << i << "): " << segY << " " << std::endl;
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 

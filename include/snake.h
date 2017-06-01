@@ -40,6 +40,10 @@ public:
 		return snakeBody;
 	}
 
+	int getLength() {
+		return length;
+	}
+
 	void setDirection(Direction d) { direction = d; };
 
 	void moveSnake() {
@@ -68,16 +72,16 @@ public:
 		for (int i = 0; i < rate; i++) {
 			switch (direction) {
 				case Direction::UP:
-					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() - i));
-					break;
-				case Direction::DOWN:
 					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() + i));
 					break;
+				case Direction::DOWN:
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() - i));
+					break;
 				case Direction::RIGHT:
-					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() + i, tail->getY()));
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() - i, tail->getY()));
 					break;
 				case Direction::LEFT:
-					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() - i, tail->getY()));
+					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() + i, tail->getY()));
 					break;
 			}
 		}
