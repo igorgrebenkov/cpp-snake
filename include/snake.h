@@ -10,7 +10,7 @@
 #include <vector>
 #include "point.h"
 
-enum class Direction { UP, DOWN, LEFT, RIGHT };
+enum class Direction { NONE, UP, DOWN, LEFT, RIGHT };
 
 class SnakeSegment : public Point {
 public:

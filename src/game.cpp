@@ -8,11 +8,8 @@
 #include "game.h"
 
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
-	scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
-	gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
-	snake = std::make_shared<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::UP);
-	printScoreBoard();
-	printSnake();
+	createWindows();
+	snake = std::make_shared<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::NONE);
 	isFood = false;
 	isGameOver = false;
 	delay = INITIAL_DELAY;
@@ -22,13 +19,21 @@ Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(
 * Contains the main game loop.
 */
 void Game::play() {
+	while (!checkInput()) {
+		createWindows();
+		printScoreBoard();
+		printSnake();
+		wrefresh(scoreBoard->getWindow());
+		wrefresh(gameBoard->getWindow());
+		std::this_thread::sleep_for(std::chrono::milliseconds(INITIAL_DELAY));
+	}
+
 	while (ch != KEY_F(1) && !isGameOver) {
 		if (isWallCollision() || isSnakeCollision()) {
 			gameOver();
 		}
 
-		scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
-		gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
+		createWindows();
 
 		if (!isFood) {
 			makeFood();
@@ -40,7 +45,6 @@ void Game::play() {
 			clearFood();
 			isFood = false;
 			snake->grow(SNAKE_GROWTH_RATE);
-
 			if (delay > 0) {
 				delay -= DELAY_REDUCE;
 			}
@@ -58,6 +62,11 @@ void Game::play() {
 		wrefresh(gameBoard->getWindow());
 		std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 	}
+}
+
+void Game::createWindows() {
+	scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
+	gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 }
 
 void Game::printScoreBoard() {
@@ -123,8 +132,8 @@ bool Game::isSnakeCollision() {
 }
 
 void Game::gameOver() {
-	// Redraw gameBoard to show Snake head's final position on game over
-	gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
+	// Redraw windows to show Snake head's final position on game over
+	createWindows();
 	printSnake();
 	wrefresh(gameBoard->getWindow());
 
@@ -182,31 +191,36 @@ void Game::reset() {
 	isFood = false;
 }
 
-void Game::checkInput() {
+bool Game::checkInput() {
 	if (kbhit()) {
 		switch (ch = getch()) {
 			case KEY_UP:
 				if (snake->canMove(Direction::UP)) {
 					snake->setDirection(Direction::UP);
+					return true;
 				}
 				break;
 			case KEY_DOWN:
 				if (snake->canMove(Direction::DOWN)) {
 					snake->setDirection(Direction::DOWN);
+					return true;
 				}
 				break;
 			case KEY_LEFT:
 				if (snake->canMove(Direction::LEFT)) {
 					snake->setDirection(Direction::LEFT);
+					return true;
 				}
 				break;
 			case KEY_RIGHT:
 				if (snake->canMove(Direction::RIGHT)) {
 					snake->setDirection(Direction::RIGHT);
+					return true;
 				}
 				break;
 		}
 	}
+	return false;
 }
 
 int Game::kbhit(void) {

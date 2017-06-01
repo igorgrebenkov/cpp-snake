@@ -39,6 +39,7 @@ public:
 	Game(int snakeStartY, int snakeStartX, int snakeLength); 
 	void play();
 private:
+	void createWindows();
 	void printScoreBoard();
 	void printSnake();
 	void printFood();
@@ -50,6 +51,6 @@ private:
 	void gameOver();
 	void gameOverMusic();
 	void reset();
-	void checkInput();
+	bool checkInput();
 	int kbhit(void);
 };
