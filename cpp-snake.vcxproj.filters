@@ -18,6 +18,12 @@
     <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\snake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\snake.h">

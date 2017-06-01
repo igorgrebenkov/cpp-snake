@@ -1,1 +1,11 @@
-﻿
+﻿  game.cpp
+..\..\..\@git\Cpp\cpp-snake\src\game.cpp(77): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+..\..\..\@git\Cpp\cpp-snake\src\game.cpp(108): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  snake.cpp
+  Generating code
+  0 of 335 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    7 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  cpp-snake.vcxproj -> C:\@git\Cpp\cpp-snake\Release\cpp-snake.exe

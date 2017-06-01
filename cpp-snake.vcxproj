@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\game.cpp" />
     <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\main.cpp" />
+    <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\snake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\food.h" />
