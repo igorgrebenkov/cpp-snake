@@ -5,16 +5,21 @@ const int F_MIN_Y = 2;
 const int F_MAX_Y_OFFSET = 6;
 const int F_MIN_X = 2;
 const int F_MAX_X_OFFSET = 4;
-const int INITIAL_DELAY = 25;
-const int DELAY_REDUCE = 5;
-const int SNAKE_GROWTH_RATE = 5;
+const int INITIAL_DELAY = 50;
+const int DELAY_REDUCE = 3;
+const int SNAKE_GROWTH_RATE = 5;	
+const int SNAKE_START_LENGTH = 1;
+
+
 
 
 class Game {
 private:
+	int ch;
 	int score;
 	int delay;
 	bool isFood;
+	bool isGameOver;
 	std::shared_ptr<Window> scoreBoard;
 	std::shared_ptr<Window> gameBoard;
 	std::shared_ptr<Snake> snake; 
@@ -24,16 +29,19 @@ public:
 	Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
 		scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
 		gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
-		snake = std::make_shared<Snake>(snakeStartX, snakeStartY, snakeLength, Direction::UP);
+		snake = std::make_shared<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::UP);
 		printScoreBoard();
 		printSnake();
 		isFood = false;
+		isGameOver = false;
 	}
 
 	void play() {
-		int ch;
+		while (ch != KEY_F(1) && !isGameOver) {
+			if (isWallCollision()) {
+				gameOver();
+			}
 
-		while (ch != KEY_F(1)) {
 			scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
 			gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 
@@ -54,12 +62,12 @@ public:
 			printFood();
 			printScoreBoard();
 
-			checkInput(ch);
+
+			checkInput();
 			snake->moveSnake();
 
 			wrefresh(scoreBoard->getWindow());
 			wrefresh(gameBoard->getWindow());
-
 			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 		}
 	}
@@ -99,7 +107,63 @@ private:
 		return snakeHeadX == foodX && snakeHeadY == foodY;
 	}
 
-	void checkInput(int& ch) {
+	bool isWallCollision() {
+		int snakeHeadX = snake->getHead()->getX();
+		int snakeHeadY = snake->getHead()->getY();
+
+		if (snakeHeadY == 0 || snakeHeadY == (LINES - BOARD_Y_OFFSET) ||
+			snakeHeadX == 0 || snakeHeadX == COLS) {
+			return true;
+		} 
+		return false;
+	}
+
+	void gameOver() {
+		int height = 10;
+		int width = 60;
+
+		int maxBoardY;
+		int maxBoardX;
+		getmaxyx(gameBoard->getWindow(), maxBoardY, maxBoardX);
+
+		int startY = (maxBoardY - height) / 2;
+		int startX = (maxBoardX - width) / 2;
+
+		std::shared_ptr<Window> w = std::make_shared<Window>(height, width, startY, startX);
+		
+		int maxY;
+		int maxX;
+		getmaxyx(w->getWindow(), maxY, maxX);
+
+		char str1[] = "Game Over!";
+		char str2[] = "Press p to play again. Any other key to quit.";
+
+		while (1) {
+			
+			mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
+			mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
+			wrefresh(w->getWindow());
+
+			if (kbhit()) {
+				if ((ch = getch()) == 'p') {
+					reset();
+				}
+				else {
+					isGameOver = true;
+				}
+				break;
+			}
+		}
+	}
+
+	void reset() {
+		snake = std::make_shared<Snake>(COLS / 2, LINES / 2, SNAKE_START_LENGTH, Direction::UP);
+		score = 0;
+		delay = INITIAL_DELAY;
+		isFood = false;
+	}
+
+	void checkInput() {
 		if (kbhit()) {
 			switch (ch = getch()) {
 				case KEY_UP:
