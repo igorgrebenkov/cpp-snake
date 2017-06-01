@@ -49,7 +49,6 @@ private:
 	bool isSnakeCollision();
 	void gameOver();
 	void gameOverMusic();
-	void beep();
 	void reset();
 	void checkInput();
 	int kbhit(void);
