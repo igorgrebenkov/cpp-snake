@@ -19,8 +19,8 @@ const int F_MIN_Y = 2;
 const int F_MAX_Y_OFFSET = 6;
 const int F_MIN_X = 2;
 const int F_MAX_X_OFFSET = 4;
-const int INITIAL_DELAY = 50;
-const int DELAY_REDUCE = 1;
+const int INITIAL_DELAY = 100;
+const int DELAY_REDUCE = 2;
 const int SNAKE_GROWTH_RATE = 5;	
 const int SNAKE_START_LENGTH = 1;
 

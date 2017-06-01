@@ -115,8 +115,6 @@ bool Game::isSnakeCollision() {
 			int segY = snake->getBody().at(i)->getY();
 
 			if (snakeHeadX == segX && snakeHeadY == segY) {
-				std::cout << "x(" << i << "): " << snakeHeadX << ",y(" << i << "): " << snakeHeadY << " " << std::endl;
-				std::cout << "x(" << i << "): " << segX << ",y(" << i << "): " << segY << " " << std::endl;
 				return true;
 			}
 		}
