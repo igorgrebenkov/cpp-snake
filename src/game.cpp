@@ -158,11 +158,11 @@ void Game::gameOver() {
 	char str1[] = "Game Over!";
 	char str2[] = "Press p to play again, or F1 to exit.";
 
-	while (1) {
-		mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
-		mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
-		wrefresh(w->getWindow());
+	mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
+	mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
+	wrefresh(w->getWindow());
 
+	while (1) {
 		if (kbhit()) {
 			ch = getch();
 			if (ch == 'p') {

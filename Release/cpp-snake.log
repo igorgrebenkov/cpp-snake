@@ -1,6 +1,7 @@
 ﻿  game.cpp
 ..\..\..\@git\Cpp\cpp-snake\src\game.cpp(90): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 ..\..\..\@git\Cpp\cpp-snake\src\game.cpp(121): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
   Generating code
   2 of 334 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
