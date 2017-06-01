@@ -81,6 +81,7 @@ public:
 					break;
 			}
 		}
+		length += rate;
 	}
 
 	bool canMove(Direction newDirection) {

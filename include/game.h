@@ -5,7 +5,8 @@ const int F_MIN_Y = 2;
 const int F_MAX_Y_OFFSET = 6;
 const int F_MIN_X = 2;
 const int F_MAX_X_OFFSET = 4;
-const int INITIAL_DELAY = 20;
+const int INITIAL_DELAY = 25;
+const int DELAY_REDUCE = 5;
 const int SNAKE_GROWTH_RATE = 5;
 
 
@@ -31,10 +32,10 @@ public:
 
 	void play() {
 		int ch;
-		scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
-		gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 
 		while (ch != KEY_F(1)) {
+			scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
+			gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 
 			if (!isFood) {
 				makeFood();
@@ -45,7 +46,7 @@ public:
 				clearFood();
 				isFood = false;
 				snake->grow(SNAKE_GROWTH_RATE);
-				delay -= 10;
+				delay -= DELAY_REDUCE;
 				score++;
 			}
 
@@ -56,8 +57,8 @@ public:
 			checkInput(ch);
 			snake->moveSnake();
 
-			wrefresh(gameBoard->getWindow());
 			wrefresh(scoreBoard->getWindow());
+			wrefresh(gameBoard->getWindow());
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 		}
