@@ -5,10 +5,14 @@ const int F_MIN_Y = 2;
 const int F_MAX_Y_OFFSET = 6;
 const int F_MIN_X = 2;
 const int F_MAX_X_OFFSET = 4;
+const int INITIAL_DELAY = 20;
+const int SNAKE_GROWTH_RATE = 5;
+
 
 class Game {
 private:
 	int score;
+	int delay;
 	bool isFood;
 	std::shared_ptr<Window> scoreBoard;
 	std::shared_ptr<Window> gameBoard;
@@ -16,7 +20,7 @@ private:
 	std::shared_ptr<Food> food;
 
 public:
-	Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0) {
+	Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
 		scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
 		gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 		snake = std::make_shared<Snake>(snakeStartX, snakeStartY, snakeLength, Direction::UP);
@@ -27,10 +31,10 @@ public:
 
 	void play() {
 		int ch;
+		scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
+		gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 
 		while (ch != KEY_F(1)) {
-			scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
-			gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 
 			if (!isFood) {
 				makeFood();
@@ -40,12 +44,14 @@ public:
 			if (ateFood()) {
 				clearFood();
 				isFood = false;
-				snake->grow();
+				snake->grow(SNAKE_GROWTH_RATE);
+				delay -= 10;
+				score++;
 			}
 
-			printScoreBoard();
 			printSnake();
 			printFood();
+			printScoreBoard();
 
 			checkInput(ch);
 			snake->moveSnake();
@@ -53,7 +59,7 @@ public:
 			wrefresh(gameBoard->getWindow());
 			wrefresh(scoreBoard->getWindow());
 
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 		}
 	}
 

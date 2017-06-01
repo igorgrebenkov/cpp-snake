@@ -1,7 +1,6 @@
 #pragma once
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
-const int GROWTH_RATE = 3;
 
 class SnakeSegment {
 private:
@@ -63,10 +62,10 @@ public:
 		snakeBody.pop_back();
 	}
 
-	void grow() {
+	void grow(int rate) {
 		std::shared_ptr<SnakeSegment> tail = snakeBody.back();
 
-		for (int i = 0; i < GROWTH_RATE; i++) {
+		for (int i = 0; i < rate; i++) {
 			switch (direction) {
 				case Direction::UP:
 					snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() - i));
