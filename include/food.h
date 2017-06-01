@@ -1,11 +1,7 @@
 #pragma once
+#include "Point.h"
 
-class Food {
-private:
-	int y;
-	int x;
+class Food : public Point { 
 public:
-	Food(int yPos, int xPos) : y(yPos), x(xPos) {};
-	int getY() { return y; }
-	int getX() { return x; }
+	Food(int yPos, int xPos) : Point(yPos, xPos) { };
 };

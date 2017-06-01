@@ -1,17 +1,16 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include "point.h"
+
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
-class SnakeSegment {
+class SnakeSegment : public Point {
 private:
 	int x;
 	int y;
 public:
-	SnakeSegment() = default;
-	SnakeSegment(int x_coord, int y_coord) : x(x_coord), y(y_coord) {};
-	int getX() { return x; }
-	int getY() { return y; }
+	SnakeSegment(int xPos, int yPos) : Point(yPos, xPos) { };
 };
 
 class Snake {

@@ -38,5 +38,8 @@
     <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\food.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

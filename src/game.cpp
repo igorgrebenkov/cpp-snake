@@ -37,7 +37,11 @@ void Game::play() {
 			clearFood();
 			isFood = false;
 			snake->grow(SNAKE_GROWTH_RATE);
-			delay -= DELAY_REDUCE;
+
+			if (delay > 0) {
+				delay -= DELAY_REDUCE;
+			}
+
 			score++;
 		}
 
