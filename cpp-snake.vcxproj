@@ -22,7 +22,9 @@
     <ClCompile Include="..\..\..\%40git\Cpp\cpp-snake\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\src\snake.h" />
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\game.h" />
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\snake.h" />
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91FFCC49-CE13-4945-A7B9-019474ABA4AD}</ProjectGuid>

@@ -1,4 +1,4 @@
 ﻿  main.cpp
-c:\@git\cpp\cpp-snake\include\curses.h(160): warning C4005: 'MOUSE_MOVED': macro redefinition
-  c:\program files (x86)\windows kits\8.1\include\um\wincon.h(118): note: see previous definition of 'MOUSE_MOVED'
-LINK : fatal error LNK1104: cannot open file 'C:\@git\Cpp\cpp-snake\Debug\cpp-snake.exe'
+c:\@git\cpp\cpp-snake\src\main.cpp(42): warning C4700: uninitialized local variable 'ch' used
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+  cpp-snake.vcxproj -> C:\@git\Cpp\cpp-snake\Debug\cpp-snake.exe

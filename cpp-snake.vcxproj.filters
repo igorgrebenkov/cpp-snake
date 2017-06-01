@@ -20,7 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\src\snake.h">
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\snake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\%40git\Cpp\cpp-snake\include\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
