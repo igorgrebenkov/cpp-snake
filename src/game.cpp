@@ -45,6 +45,8 @@ void Game::play() {
 		if (ateFood()) {
 			#ifdef _WIN32
 				Beep(523, 75);
+			#elif __linux__
+				beep();
 			#endif
 			clearFood();
 			isFood = false;
@@ -88,7 +90,7 @@ void Game::printScoreBoard() {
 void Game::printSnake() {
 	wattron(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 	for (auto seg : snake->getBody()) {
-		mvwaddch(gameBoard->getWindow(), seg->getY(), seg->getX(), ACS_BLOCK);
+		mvwaddch(gameBoard->getWindow(), seg->getY(), seg->getX(), ' ' | A_REVERSE);
 	}
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 }
@@ -211,6 +213,8 @@ void Game::gameOverMusic() {
 		for (int i = 1; i < 9; i++) {
 			Beep((rand() % 800 + 500), 100);
 		}
+	#elif __linux__
+		beep();
 	#endif
 }
 
