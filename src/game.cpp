@@ -22,6 +22,7 @@ Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(
 * Contains the main game loop.
 */
 void Game::play() {
+
 	while (!checkInput()) {
 		createWindows();
 		printScoreBoard();
@@ -168,9 +169,11 @@ void Game::gameOver() {
 	char str1[] = "Game Over!";
 	char str2[] = "Press p to play again, or q to exit.";
 
+	wattron(w->getWindow(), COLOR_PAIR(1) | A_BOLD);
 	mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);
 	mvwprintw(w->getWindow(), (maxY / 2) + 1, (maxX - strlen(str2)) / 2, "%s", str2);
 	wrefresh(w->getWindow());
+	wattroff(w->getWindow(), COLOR_PAIR(1) | A_BOLD);
 
 	gameOverMusic();
 
