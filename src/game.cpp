@@ -88,17 +88,17 @@ void Game::printScoreBoard() {
 }
 
 void Game::printSnake() {
-	wattron(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
+	wattron(gameBoard->getWindow(), COLOR_PAIR(1));
 	for (auto seg : snake->getBody()) {
 		mvwaddch(gameBoard->getWindow(), seg->getY(), seg->getX(), ' ' | A_REVERSE);
 	}
-	wattroff(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
+	wattroff(gameBoard->getWindow(), COLOR_PAIR(1));
 }
 
 void Game::printFood() {
-	wattron(gameBoard->getWindow(), COLOR_PAIR(2));
+	wattron(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
 	mvwaddch(gameBoard->getWindow(), food->getY(), food->getX(), ACS_DIAMOND);
-	wattroff(gameBoard->getWindow(), COLOR_PAIR(2));
+	wattroff(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
 }
 
 void Game::clearFood() {
