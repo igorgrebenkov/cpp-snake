@@ -23,8 +23,6 @@ const int INITIAL_DELAY = 100;
 const int DELAY_REDUCE = 2;
 const int SNAKE_GROWTH_RATE = 5;	
 const int SNAKE_START_LENGTH = 1;
-const char SNAKE_CHAR[] = "O";
-const char FOOD_CHAR[] = "@";
 
 class Game {
 private:

@@ -10,7 +10,6 @@
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(3, COLOR_RED, COLOR_BLACK);
 	createWindows();
 	snake = std::make_shared<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::NONE);
 	isFood = false;
@@ -88,14 +87,14 @@ void Game::printScoreBoard() {
 void Game::printSnake() {
 	wattron(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 	for (auto seg : snake->getBody()) {
-		mvwprintw(gameBoard->getWindow(), seg->getY(), seg->getX(), SNAKE_CHAR);
+		mvwaddch(gameBoard->getWindow(), seg->getY(), seg->getX(), ACS_BLOCK);
 	}
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 }
 
 void Game::printFood() {
 	wattron(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
-	mvwprintw(gameBoard->getWindow(), food->getY(), food->getX(), FOOD_CHAR);
+	mvwaddch(gameBoard->getWindow(), food->getY(), food->getX(), ACS_DIAMOND);
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
 }
 

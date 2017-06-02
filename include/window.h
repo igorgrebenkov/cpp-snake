@@ -6,6 +6,7 @@
 */
 
 #pragma once
+const int BORDER_STYLE = 0;
 
 class Window {
 public:
@@ -13,8 +14,7 @@ public:
 	Window(int height, int width, int y, int x) {
 		window = newwin(height, width, y, x);
 		wattron(window, COLOR_PAIR(2));
-		box(window, 0, 0);		/* 0, 0 gives default characters
-									* for the vertical and horizontal lines	*/
+		box(window, BORDER_STYLE, BORDER_STYLE);		
 		wattroff(window, COLOR_PAIR(2));
 		wrefresh(window);		
 	}
