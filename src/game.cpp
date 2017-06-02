@@ -96,9 +96,9 @@ void Game::printSnake() {
 }
 
 void Game::printFood() {
-	wattron(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
+	wattron(gameBoard->getWindow(), COLOR_PAIR(2));
 	mvwaddch(gameBoard->getWindow(), food->getY(), food->getX(), ACS_DIAMOND);
-	wattroff(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
+	wattroff(gameBoard->getWindow(), COLOR_PAIR(2));
 }
 
 void Game::clearFood() {
