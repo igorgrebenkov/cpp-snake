@@ -18,6 +18,7 @@ int main(int argc, char* argv[]) {
 	keypad(stdscr, TRUE);		
 	nodelay(stdscr, TRUE);      // make getch non-blocking
 	noecho();
+	start_color();
 
 	const int SNAKE_START_Y = LINES / 2;
 	const int SNAKE_START_X = COLS / 2;
