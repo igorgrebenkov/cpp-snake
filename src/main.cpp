@@ -5,10 +5,7 @@
 *	Author: Igor Grebenkov
 */
 
-#include <vector>
 #include <memory>
-
-#include "curses.h"
 #include "game.h"
 
 int main(int argc, char* argv[]) {
