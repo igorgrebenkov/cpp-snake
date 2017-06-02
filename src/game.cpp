@@ -62,8 +62,10 @@ void Game::play() {
 		checkInput();
 		snake->moveSnake();
 
-		wrefresh(scoreBoard->getWindow());
+		refresh();
 		wrefresh(gameBoard->getWindow());
+		wrefresh(scoreBoard->getWindow());
+
 		std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 	}
 }
@@ -75,23 +77,26 @@ void Game::createWindows() {
 
 void Game::printScoreBoard() {
 	wattron(scoreBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
-	mvwprintw(scoreBoard->getWindow(), 1, COLS / 2, "Score: %d", score);
+	// Printing a blank space somehow removes flicker from score? 
+	char scoreChar[9];
+	snprintf(scoreChar, 9, "Score: %d", score);
+	mvwprintw(scoreBoard->getWindow(), 1, 1, " ");
+	mvwprintw(scoreBoard->getWindow(), 1, (COLS - strlen(scoreChar)) / 2, "%s", scoreChar);
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 }
 
 void Game::printSnake() {
 	wattron(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 	for (auto seg : snake->getBody()) {
-		mvwprintw(gameBoard->getWindow(), seg->getY(), seg->getX(), "O");
+		mvwprintw(gameBoard->getWindow(), seg->getY(), seg->getX(), SNAKE_CHAR);
 	}
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 }
 
 void Game::printFood() {
 	wattron(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
-	mvwprintw(gameBoard->getWindow(), food->getY(), food->getX(), "@");
+	mvwprintw(gameBoard->getWindow(), food->getY(), food->getX(), FOOD_CHAR);
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(2) | A_BOLD);
-
 }
 
 void Game::clearFood() {
