@@ -58,20 +58,7 @@ void Snake::grow(int rate) {
 	std::shared_ptr<SnakeSegment> tail = snakeBody.back();
 
 	for (int i = 0; i < rate; i++) {
-		switch (direction) {
-			case Direction::UP:
-				snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() + i));
-				break;
-			case Direction::DOWN:
-				snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY() - i));
-				break;
-			case Direction::RIGHT:
-				snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() - i, tail->getY()));
-				break;
-			case Direction::LEFT:
-				snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX() + i, tail->getY()));
-				break;
-		}
+		snakeBody.push_back(std::make_shared<SnakeSegment>(tail->getX(), tail->getY()));
 	}
 	length += rate;
 }
