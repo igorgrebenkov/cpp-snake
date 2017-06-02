@@ -46,7 +46,7 @@ private:
 	void printSnake();
 	void printFood();
 	void clearFood();
-	void makeFood();
+	bool makeFood();
 	bool ateFood();
 	bool isWallCollision();
 	bool isSnakeCollision();

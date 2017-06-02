@@ -40,7 +40,7 @@ void Game::play() {
 		createWindows();
 
 		if (!isFood) {
-			makeFood();
+			while (!makeFood());
 			isFood = true;
 		}
 
@@ -103,11 +103,20 @@ void Game::clearFood() {
 	mvwprintw(gameBoard->getWindow(), food->getY(), food->getX(), " ");
 }
 
-void Game::makeFood() {
+bool Game::makeFood() {
 	srand(time(NULL));
 	int foodY = rand() % (LINES - F_MAX_Y_OFFSET) + (F_MIN_Y);
 	int foodX = rand() % (COLS - F_MAX_X_OFFSET) + (F_MIN_X);
+
+	// Make sure food isn't placed on existing snake segment
+	for (auto seg : snake->getBody()) {
+		if (seg->getX() == foodX && seg->getY() == foodY) {
+			return false;
+		}
+	}
+
 	food = std::make_shared<Food>(foodY, foodX);
+	return true;
 }
 
 bool Game::ateFood() {
