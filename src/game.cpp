@@ -4,7 +4,6 @@
 *
 *	Author: Igor Grebenkov
 */
-#include <windows.h>
 #include "game.h"
 
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
@@ -44,7 +43,9 @@ void Game::play() {
 		}
 
 		if (ateFood()) {
-			Beep(523, 75);
+			#ifdef _WIN32
+				Beep(523, 75);
+			#endif
 			clearFood();
 			isFood = false;
 			snake->grow(SNAKE_GROWTH_RATE);
@@ -77,8 +78,8 @@ void Game::createWindows() {
 void Game::printScoreBoard() {
 	wattron(scoreBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
 	// Printing a blank space somehow removes flicker from score? 
-	char scoreChar[9];
-	snprintf(scoreChar, 9, "Score: %d", score);
+	char scoreChar[11];
+	snprintf(scoreChar, 11, "Score: %d", score);
 	mvwprintw(scoreBoard->getWindow(), 1, 1, " ");
 	mvwprintw(scoreBoard->getWindow(), 1, (COLS - strlen(scoreChar)) / 2, "%s", scoreChar);
 	wattroff(gameBoard->getWindow(), COLOR_PAIR(1) | A_BOLD);
@@ -206,9 +207,11 @@ void Game::gameOver() {
 }
 
 void Game::gameOverMusic() {
-	for (int i = 1; i < 9; i++) {
-		Beep((rand() % 800 + 500), 100);
-	}
+	#ifdef _WIN32
+		for (int i = 1; i < 9; i++) {
+			Beep((rand() % 800 + 500), 100);
+		}
+	#endif
 }
 
 void Game::reset() {

@@ -5,11 +5,19 @@
 *	Author: Igor Grebenkov
 */
 #pragma once
+
+#ifdef _WIN32
+	#include <windows.h> 
+	#include "pdcurses.h"
+#elif __linux__
+	#include "curses.h"
+#endif
+
 #include <memory>
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include "curses.h"
+#include <cstring>
 #include "snake.h"
 #include "food.h"
 #include "window.h"

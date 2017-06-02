@@ -6,7 +6,7 @@
 */
 
 #pragma once
-#include "Point.h"
+#include "point.h"
 
 class Food : public Point { 
 public:
