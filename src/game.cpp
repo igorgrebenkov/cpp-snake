@@ -9,7 +9,7 @@
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	snake = std::make_shared<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::NONE);
+	snake = std::make_unique<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::NONE);
 	isFood = false;
 	isGameOver = false;
 	delay = INITIAL_DELAY;
@@ -20,6 +20,8 @@ Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(
 */
 void Game::play() {
 	bool firstRun = true;
+
+	// On the first run, we display the board + title screen.
 	while (!checkInput()) {
 		if (firstRun) {
 			firstRun = false;
@@ -38,8 +40,8 @@ void Game::play() {
 			int startY = (maxBoardY - height) / 2;
 			int startX = (maxBoardX - width) / 2;
 
-			// Window for title screen 
-			std::shared_ptr<Window> w = std::make_shared<Window>(height, width, startY, startX);
+			// Window for title screen.
+			std::unique_ptr<Window> w = std::make_unique<Window>(height, width, startY, startX);
 
 			int maxY;
 			int maxX;
@@ -112,8 +114,8 @@ void Game::play() {
 }
 
 void Game::createWindows() {
-	scoreBoard = std::make_shared<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
-	gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
+	scoreBoard = std::make_unique<Window>(BOARD_Y_OFFSET, COLS, 0, 0);
+	gameBoard = std::make_unique<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
 }
 
 void Game::printScoreBoard() {
@@ -156,7 +158,7 @@ bool Game::makeFood() {
 		}
 	}
 
-	food = std::make_shared<Food>(foodY, foodX);
+	food = std::make_unique<Food>(foodY, foodX);
 	return true;
 }
 
@@ -198,9 +200,8 @@ bool Game::isSnakeCollision() {
 }
 
 void Game::gameOver() {
-	// Redraw game board to show Snake head's final position on game over
-	gameBoard = std::make_shared<Window>(LINES - BOARD_Y_OFFSET, COLS, BOARD_Y_OFFSET, 0);
-
+	// Redraw windows to show Snake head's final position on game over
+	createWindows();
 	printSnake();
 	wrefresh(gameBoard->getWindow());
 
@@ -215,7 +216,7 @@ void Game::gameOver() {
 	int startX = (maxBoardX - width) / 2;
 
 	// Window for game over screen
-	std::shared_ptr<Window> w = std::make_shared<Window>(height, width, startY, startX);
+	std::unique_ptr<Window> w = std::make_unique<Window>(height, width, startY, startX);
 
 	int maxY;
 	int maxX;
@@ -258,7 +259,7 @@ void Game::gameOverMusic() {
 }
 
 void Game::reset() {
-	snake = std::make_shared<Snake>(COLS / 2, LINES / 2, SNAKE_START_LENGTH, Direction::UP);
+	snake = std::make_unique<Snake>(COLS / 2, LINES / 2, SNAKE_START_LENGTH, Direction::UP);
 	score = 0;
 	delay = INITIAL_DELAY;
 	isFood = false;

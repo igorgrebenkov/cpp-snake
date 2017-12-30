@@ -1,8 +1,12 @@
 ﻿  game.cpp
 c:\@git\cpp\cpp-snake\include\pdcurses.h(160): warning C4005: 'MOUSE_MOVED': macro redefinition
   C:\Program Files (x86)\Windows Kits\8.1\Include\um\wincon.h(118): note: see previous definition of 'MOUSE_MOVED'
-..\..\..\@git\Cpp\cpp-snake\src\game.cpp(148): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-..\..\..\@git\Cpp\cpp-snake\src\game.cpp(188): warning C4018: '<': signed/unsigned mismatch
+..\..\..\@git\Cpp\cpp-snake\src\game.cpp(150): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+..\..\..\@git\Cpp\cpp-snake\src\game.cpp(190): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+c:\@git\cpp\cpp-snake\include\pdcurses.h(160): warning C4005: 'MOUSE_MOVED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\wincon.h(118): note: see previous definition of 'MOUSE_MOVED'
+  snake.cpp
   Generating code
   0 of 414 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

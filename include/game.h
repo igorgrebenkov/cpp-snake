@@ -40,10 +40,10 @@ private:
 	int delay;
 	bool isFood;
 	bool isGameOver;
-	std::shared_ptr<Window> scoreBoard;
-	std::shared_ptr<Window> gameBoard;
-	std::shared_ptr<Snake> snake; 
-	std::shared_ptr<Food> food;
+	std::unique_ptr<Window> scoreBoard;
+	std::unique_ptr<Window> gameBoard;
+	std::unique_ptr<Snake> snake; 
+	std::unique_ptr<Food> food;
 public:
 	Game(int snakeStartY, int snakeStartX, int snakeLength); 
 	void play();

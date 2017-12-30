@@ -12,8 +12,7 @@ Snake:: Snake(int x, int y, int len, Direction d) : length(len), direction(d) {
 	snakeBody.push_back(std::make_shared<SnakeSegment>(x, y));
 	head = snakeBody.front();
 
-	for (int i = 0; i < length - 1; i++) {
-		x++;
+	for (int i = 0; i < length - 1; i++, x++) {
 		snakeBody.push_back(std::make_shared<SnakeSegment>(x, y));
 	}
 }
