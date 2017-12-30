@@ -4,7 +4,7 @@ A simple snake implementation in C++14 using curses.
 Supports Windows (using pdcurses) and Linux (using ncurses).
 
 For best results use a bitmap font whose height/width is about equal. The font used in the below
-screenshot is `TandyNew TV` from https://int10h.org/oldschool-pc-fonts/readme/.
+screenshot is `TandyNew TV` from https://int10h.org/oldschool-pc-fonts/.
 
 ![cppsnake screenshot][screenshot]
 
