@@ -18,7 +18,12 @@ public:
 		wattroff(window, COLOR_PAIR(2));
 		wrefresh(window);		
 	}
+
 	WINDOW* getWindow() {
 		return window;
+	}
+
+	~Window() {
+		delwin(window);
 	}
 };

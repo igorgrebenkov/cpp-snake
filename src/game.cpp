@@ -9,7 +9,6 @@
 Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(INITIAL_DELAY) {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	createWindows();
 	snake = std::make_shared<Snake>(snakeStartX, snakeStartY, SNAKE_START_LENGTH, Direction::NONE);
 	isFood = false;
 	isGameOver = false;
@@ -20,13 +19,16 @@ Game::Game(int snakeStartY, int snakeStartX, int snakeLength) : score(0), delay(
 * Contains the main game loop.
 */
 void Game::play() {
-
+	bool firstRun = true;
 	while (!checkInput()) {
-		createWindows();
-		printScoreBoard();
-		printSnake();
-		wrefresh(scoreBoard->getWindow());
-		wrefresh(gameBoard->getWindow());
+		if (firstRun) {
+			createWindows();
+			firstRun = false;
+			printScoreBoard();
+			printSnake();
+			wrefresh(scoreBoard->getWindow());
+			wrefresh(gameBoard->getWindow());
+		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(INITIAL_DELAY));
 	}
 
