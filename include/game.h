@@ -31,6 +31,7 @@ const int INITIAL_DELAY = 120;
 const int DELAY_REDUCE = 2;
 const int SNAKE_GROWTH_RATE = 5;	
 const int SNAKE_START_LENGTH = 1;
+const std::string VERSION = "v1.0";
 
 class Game {
 private:

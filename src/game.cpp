@@ -22,10 +22,47 @@ void Game::play() {
 	bool firstRun = true;
 	while (!checkInput()) {
 		if (firstRun) {
-			createWindows();
 			firstRun = false;
+			
+			createWindows();
 			printScoreBoard();
 			printSnake();
+
+			int height = 10;
+			int width = 60;
+
+			int maxBoardY;
+			int maxBoardX;
+			getmaxyx(gameBoard->getWindow(), maxBoardY, maxBoardX);
+
+			int startY = (maxBoardY - height) / 2;
+			int startX = (maxBoardX - width) / 2;
+
+			// Window for title screen 
+			std::shared_ptr<Window> w = std::make_shared<Window>(height, width, startY, startX);
+
+			int maxY;
+			int maxX;
+			getmaxyx(w->getWindow(), maxY, maxX);
+
+		    const std::string app_name = "cppsnake " + VERSION;
+			const char author[] = "by Igor Grebenkov";
+			const char git_link[] = "https://github.com/igorgrebenkov/cpp-snake";
+			const char start_msg[] = "press an arrow key to start playing";
+
+			wattron(w->getWindow(), COLOR_PAIR(1) | A_BOLD);
+
+			mvwprintw(w->getWindow(), (maxY / 2) - 4, 
+				(maxX - strlen(app_name.c_str())) / 2, "%s", app_name.c_str());
+			mvwprintw(w->getWindow(), 
+				(maxY / 2) - 2, (maxX - strlen(author)) / 2, "%s", author);
+			mvwprintw(w->getWindow(), (maxY / 2), 
+				(maxX - strlen(git_link)) / 2, "%s", git_link);
+			mvwprintw(w->getWindow(), (maxY / 2) + 3, 
+				(maxX - strlen(start_msg)) / 2, "%s", start_msg);
+
+			wrefresh(w->getWindow());
+			wattroff(w->getWindow(), COLOR_PAIR(1) | A_BOLD);
 			wrefresh(scoreBoard->getWindow());
 			wrefresh(gameBoard->getWindow());
 		}
@@ -184,8 +221,8 @@ void Game::gameOver() {
 	int maxX;
 	getmaxyx(w->getWindow(), maxY, maxX);
 
-	char str1[] = "Game Over!";
-	char str2[] = "Press p to play again, or q to exit.";
+	const char str1[] = "Game Over!";
+	const char str2[] = "Press p to play again, or q to exit.";
 
 	wattron(w->getWindow(), COLOR_PAIR(1) | A_BOLD);
 	mvwprintw(w->getWindow(), (maxY / 2) - 2, (maxX - strlen(str1)) / 2, "%s", str1);

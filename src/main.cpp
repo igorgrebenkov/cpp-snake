@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 	noecho();
 	start_color();
 
-	const int SNAKE_START_Y = LINES / 2;
+	const int SNAKE_START_Y = (LINES / 2) + 10;
 	const int SNAKE_START_X = COLS / 2;
 	
 	std::shared_ptr<Game> g = std::make_shared<Game>(SNAKE_START_Y,
