@@ -35,3 +35,5 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+
+git_release/
